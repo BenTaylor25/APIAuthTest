@@ -1,9 +1,12 @@
 
+using APIAuthTest.Services.BoxServices;
+
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddControllers();
+    builder.Services.AddSingleton<IBoxService, BoxService>();
 }
 
 var app = builder.Build();
