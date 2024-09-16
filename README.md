@@ -16,3 +16,8 @@ git commit -m "Init"
 git remote add origin "https://github.com/BenTaylor25/APIAuthTest.git"
 git push origin master
 ```
+```bash
+cd APIAuthTest
+
+dotnet add package ErrorOr --version 0.1.0
+```
