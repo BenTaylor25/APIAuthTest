@@ -4,6 +4,7 @@ using ErrorOr;
 
 using APIAuthTest.Controllers.RequestBodies;
 using APIAuthTest.Services.AuthServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIAuthTest.Controllers;
 
@@ -16,6 +17,7 @@ public class AuthController : AppControllerBase
         _authService = authService;
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public IActionResult Login(
         [FromBody] LoginPostBody body
@@ -30,8 +32,9 @@ public class AuthController : AppControllerBase
         {
             return Unauthorized();
         }
+        UserModel user = serviceResponse.Value;
 
-        // Generate JWT.
-        return Ok(); // return token
+        string token = _authService.GenerateJwt(user);
+        return Ok(token);
     }
 }

@@ -1,8 +1,9 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 using APIAuthTest.Services.BoxServices;
-using Microsoft.IdentityModel.Tokens;
+using APIAuthTest.Services.AuthServices;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddSwaggerGen();
     builder.Services.AddControllers();
     builder.Services.AddSingleton<IBoxService, BoxService>();
+    builder.Services.AddSingleton<IAuthService, AuthService>();
 
     builder.Services.AddAuthentication(options =>
     {
@@ -22,7 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
     .AddJwtBearer(options =>
     {
         var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-        var secretKey = Encoding.UTF8.GetBytes("changeme");
+        var secretKey = Encoding.UTF8.GetBytes("changemechangemechangemechangeme");
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -30,8 +32,8 @@ var builder = WebApplication.CreateBuilder(args);
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
+            ValidIssuer = "APIAuthTest",   // move this to .env
+            ValidAudience = "APIAuthTest?",   // move this to .env
             IssuerSigningKey = new SymmetricSecurityKey(secretKey)
         };
     });

@@ -1,13 +1,18 @@
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 using ErrorOr;
 
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+
 namespace APIAuthTest.Services.AuthServices;
 
-public class AuthServices : IAuthService
+public class AuthService : IAuthService
 {
     private readonly List<UserModel> _users;
 
-    public AuthServices()
+    public AuthService()
     {
         _users = new List<UserModel>();
     }
@@ -29,5 +34,32 @@ public class AuthServices : IAuthService
             }
         }
         return Error.NotFound();
+    }
+
+    public string GenerateJwt(UserModel user)
+    {
+        SymmetricSecurityKey securityKey = new(
+            Encoding.UTF8.GetBytes("changemechangemechangemechangeme")
+        );
+
+        SigningCredentials credentials = new(
+            securityKey,
+            SecurityAlgorithms.HmacSha256
+        );
+
+        Claim[] claims = new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Username)
+        };
+
+        JwtSecurityToken token = new(
+            "APIAuthTest",   // move this to .env
+            "APIAuthTest?",   // move this to .env
+            claims,
+            expires: DateTime.Now.AddMinutes(15),
+            signingCredentials: credentials
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
