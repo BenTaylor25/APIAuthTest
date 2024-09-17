@@ -20,4 +20,5 @@ git push origin master
 cd APIAuthTest
 
 dotnet add package ErrorOr --version 0.1.0
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 ```
