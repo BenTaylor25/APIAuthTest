@@ -15,6 +15,12 @@ public class AuthService : IAuthService
     public AuthService()
     {
         _users = new List<UserModel>();
+
+        ErrorOr<UserModel> userResponse = UserModel.Create("Ben", "password");
+        if (!userResponse.IsError)
+        {
+            _users.Add(userResponse.Value);
+        }
     }
 
     public ErrorOr<UserModel> ValidateUser(
