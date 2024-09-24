@@ -5,6 +5,7 @@ using ErrorOr;
 using APIAuthTest.Services.BoxServices;
 using APIAuthTest.Models;
 using APIAuthTest.Controllers.RequestBodies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIAuthTest.Controllers;
 
@@ -47,6 +48,7 @@ public class BoxController : AppControllerBase
     }
 
     [HttpPost("/box")]
+    [Authorize]
     public IActionResult AddBox(
         [FromBody] BoxAddBody requestBody
     )
