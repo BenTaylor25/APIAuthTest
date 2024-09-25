@@ -1,0 +1,14 @@
+@SuperMinimalAuthAPI_HostAddress = http://localhost:5174
+
+GET {{SuperMinimalAuthAPI_HostAddress}}/weatherforecast/public
+Accept: application/json
+
+###
+
+GET {{SuperMinimalAuthAPI_HostAddress}}/weatherforecast/private
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXJfaWQiLCJuYmYiOjE3MjcyNTE3MzgsImV4cCI6MTcyNzI1NTMzOCwiaWF0IjoxNzI3MjUxNzM4fQ.-EGMojqFAHwuTiupuOKX9lCMx60hyxCIaR-5WtOvHb0
+
+###
+
+POST {{SuperMinimalAuthAPI_HostAddress}}/auth/token
