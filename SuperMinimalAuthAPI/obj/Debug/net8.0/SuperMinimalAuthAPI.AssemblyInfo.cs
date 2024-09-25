@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SuperMinimalAuthAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18d5771870b91b0aeaa0ef9ff61e0aae580f1abc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ed5ef119b19dba75fb44e6c4cf70460d5ebcf2f")]
 [assembly: System.Reflection.AssemblyProductAttribute("SuperMinimalAuthAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SuperMinimalAuthAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
