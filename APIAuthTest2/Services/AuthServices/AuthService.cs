@@ -44,28 +44,23 @@ public class AuthService : IAuthService
 
     public string GenerateJwt(UserModel user)
     {
-        SymmetricSecurityKey securityKey = new(
-            Encoding.UTF8.GetBytes("changemechangemechangemechangeme")
-        );
+        JwtSecurityTokenHandler tokenHandler = new();
 
-        SigningCredentials credentials = new(
-            securityKey,
-            SecurityAlgorithms.HmacSha256
-        );
+        byte[]? key = Encoding.UTF8.GetBytes(CHANGEME.AuthKey);
 
-        Claim[] claims = new[]
+        SecurityTokenDescriptor tokenDescriptor = new()
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Username)
+            Subject = new ClaimsIdentity(new[] { new Claim("id", "user_id")}),
+            Expires = DateTime.UtcNow.AddHours(1),
+            SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha256Signature
+            )
         };
 
-        JwtSecurityToken token = new(
-            "APIAuthTest",   // move this to .env
-            "APIAuthTest?",   // move this to .env
-            claims,
-            expires: DateTime.Now.AddMinutes(15),
-            signingCredentials: credentials
-        );
+        SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+        string tokenString = tokenHandler.WriteToken(token);
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return tokenString;
     }
 }
