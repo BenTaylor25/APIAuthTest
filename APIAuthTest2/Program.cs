@@ -1,4 +1,6 @@
 using APIAuthTest2;
+using APIAuthTest2.Services.AuthServices;
+using APIAuthTest2.Services.BoxServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -56,6 +58,10 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+builder.Services.AddControllers();
+builder.Services.AddSingleton<IBoxService, BoxService>();
+builder.Services.AddSingleton<IAuthService, AuthService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
