@@ -5,8 +5,9 @@ using ErrorOr;
 
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using Constants;
+using APIAuthTest2.Constants;
 using DotNetEnv;
+using APIAuthTest2.Helpers;
 
 namespace APIAuthTest2.Services.AuthServices;
 
@@ -48,7 +49,9 @@ public class AuthService : IAuthService
     {
         JwtSecurityTokenHandler tokenHandler = new();
 
-        byte[]? key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable(CONST_ENV.API_KEY)!);
+        string keyEnvVar = EnvVar.GetVariable(CONST_ENV.API_KEY);
+
+        byte[]? key = Encoding.UTF8.GetBytes(keyEnvVar);
 
         SecurityTokenDescriptor tokenDescriptor = new()
         {
