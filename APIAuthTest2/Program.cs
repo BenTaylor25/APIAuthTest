@@ -1,6 +1,8 @@
 using APIAuthTest2;
 using APIAuthTest2.Services.AuthServices;
 using APIAuthTest2.Services.BoxServices;
+using Constants;
+using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -10,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var key = CHANGEME.AuthKey;
+Env.Load();
+string key = Environment.GetEnvironmentVariable(CONST_ENV.API_KEY)!;
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
